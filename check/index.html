@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        .msger {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          height: 400px;
+          padding: 20px;
+        }
+        
+        .msger-chat {
+          overflow-y: auto;
+        }
+        
+        .msg {
+          display: flex;
+          align-items: flex-end;
+          margin-bottom: 10px;
+        }
+        
+        .msg:last-of-type {
+          margin: 0;
+        }
+        
+        .msg-img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+        
+        .msg-img img {
+          width: 100%;
+        }
+        
+        .msg-bubble {
+          max-width: 80%;
+          padding: 15px;
+          border-radius: 15px;
+          background-color: #f2f2f2;
+          box-shadow: 0 5px 10px rgba(0,0,0,.12);
+        }
+        
+        .msg-info {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 0.85rem;
+          color: gray;
+        }
+        
+        .msg-info time {
+          margin-left: 10px;
+        }
+        
+        .msger-inputarea {
+          display: flex;
+          background-color: #fff;
+          margin: 15px;
+          border-radius: 10px;
+          box-shadow: 0 5px 10px rgba(0,0,0,.12);
+        }
+        
+        .msger-input {
+          flex: 1;
+          padding: 10px;
+          font-size: 1rem;
+          border: none;
+        }
+        
+        .msger-send-btn {
+          padding: 10px;
+          background-color: #00bfa5;
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background-color 0.5s;
+        }
+        
+        .msger-send-btn:hover {
+          background-color: #0bb893;
+        }
+    </style>
+</head>
+<body>
+    <div class="msger">
+        <div class="msger-chat"></div>
+        <form class="msger-inputarea" onsubmit="return sendMessage()">
+            <input type="text" class="msger-input" placeholder="Enter your message...">
+            <button type="submit" class="msger-send-btn">Send</button>
+        </form>
+    </div>
+    
+    <script>
+        const chatContainer = document.querySelector('.msger-chat');
+        const form = document.querySelector('.msger-inputarea');
+        const input = document.querySelector('.msger-input');
+        
+        function sendMessage() {
+            const text = input.value.trim();
+            if (text !== '') {
+                const msg = `
+                    <div class="msg">
+                        <div class="msg-bubble">
+                            <div class="msg-info">
+                                <div class="msg-text">${text}</div>
+                                <time datetime="${new Date().toISOString()}">${new Date().toLocaleTimeString()}</time>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', msg);
+                input.value = '';
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
